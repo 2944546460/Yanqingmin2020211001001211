@@ -1,4 +1,4 @@
-package week4;
+package YanQingmin.week3.demo.week4;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
