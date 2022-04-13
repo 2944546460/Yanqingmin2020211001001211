@@ -8,7 +8,7 @@ public class User {
     private String password;
     private String email;
     private String gender;
-    private java.util.Date birthday;
+    private Date birthday;
     //constructor
 
     public User() {
@@ -86,6 +86,7 @@ public class User {
                 ", birthday=" + birthday +
                 '}';
     }
+
 
 }
 

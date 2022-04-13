@@ -7,8 +7,6 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name = "LoginServlet",value = "/login")
@@ -36,7 +34,38 @@ public class LoginServlet extends HttpServlet {
         try {
             User user=  userDao.findByUsernamePassword(con,username,password);
             if (user!=null){
-                request.setAttribute("user",user);
+                String rememberMe=request.getParameter("RememberMe");
+                if (rememberMe!=null && rememberMe.equals("1")){
+                    Cookie usernameCookie=new Cookie("cUsername",user.getUsername());
+                    Cookie passwordCookie=new Cookie("cPassword",user.getPassword());
+                    Cookie rememberMeCookie=new Cookie("cRememberMe",rememberMe);
+
+                    usernameCookie.setMaxAge(5);
+                    passwordCookie.setMaxAge(5);
+                    rememberMeCookie.setMaxAge(5);
+
+                    response.addCookie(usernameCookie);
+                    response.addCookie(passwordCookie);
+                    response.addCookie(rememberMeCookie);
+
+                }
+
+
+
+
+
+
+
+
+                Cookie c= new Cookie("SessionID",""+user.getId());
+                c.setMaxAge(10*60);
+                response.addCookie(c);
+
+                HttpSession session= request.getSession();
+                System.out.println("Session id-->"+session.getId());
+                session.setMaxInactiveInterval(10);
+
+                session.setAttribute("user",user);
                 request.getRequestDispatcher("WER-INF/views/userinfo.jsp ").forward(request,response);
             }else{
                 request.setAttribute("message","Username or Password Error!!!");
@@ -68,6 +97,7 @@ try{
 } catch (SQLException e) {
     e.printStackTrace();
 }
-    }*/
+
+   }*/
     }
 }
