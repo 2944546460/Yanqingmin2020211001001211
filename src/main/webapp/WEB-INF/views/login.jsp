@@ -1,69 +1,50 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 29445
-  Date: 2022/4/20
-  Time: 13:36
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page import="com.YanQingmin.model.User" %>
-<%@ page import="com.YanQingmin.model.User" %>
-<html>
-<head>
-    <title>My Online Shop</title>
 
-</head>
-<body style="margin:0px;padding:0px;font-family:helvetica;">
-<table width="100%" cellpadding="0" cellspacing="0">
-    <tr>
-        <td height="78" style="background-color:#788dad;
-                            border-width:2px;
-                            border-style:solid;
-                            border-color:black;
-                            padding:0px;
-                            margin:0px;" valign="bottom">
-
-            <img src="logo.jpg" align="left">
-        </td>
-    </tr>
-    <tr>
-        <td height="15" style="color:white;
-                            background-color:#444444;
-                            border-width:2px;
-                            border-style:solid;
-                            border-top-width:0px;
-                            border-color:black;" align="center">
-            <a style="color:white;" href="home">Home</a>
-            - <a style="color:white;" href="login">Login</a>
-            - <a style="color:white;" href="productList">Product</a>
-            - <a style="color:white;" href="#">FAQ</a>
-            - <a style="color:white;" href="#">About</a>
-
-        </td>
-    </tr>
-    <tr height="25"><td align="right"><font size="18" color="blue">
-        Welcome,
-        <%
-            User user=(User) session.getAttribute("user");
-            if (user!=null){
-                out.println(user.getUsername());
-
-            }else {
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="header.jsp"%>
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-1">
+					<div class="login-form"><!--login form-->
+					<h2>Login to your account</h2>	<%
+    if(!(request.getAttribute("message")==null)){
+    out.println("<h2>"+request.getAttribute("message")+"</h2>");
+}%>
+<%
+    Cookie[] cookies=request.getCookies();
+    String username="";
+    String password="";
+    String rememberMe="";
+    if (cookies!=null){
+        for (Cookie cookie:cookies){
+            if (cookie.getName().equals("cUsername")){
+                username=cookie.getValue();
             }
-        %>
+            if (cookie.getName().equals("cPassword")){
+                password=cookie.getValue();
+            }
+            if (cookie.getName().equals("cRememberMe")){
+                rememberMe=cookie.getValue();
+            }
+        }
+    }
+    //update 5 user basepath
+%>
 
-        <font size="18" color="red"> Guest</font>
-
-    </font></td> </tr>
-    <tr height="20"><td align="right">
-        <%
-            if (session.getAttribute("user")!=null){
-        %>
-        <br> <a href="logout">Logout</a>
-        <% }%>
-
-
-        <br><a href="#">My Cart</a><br/>
-        <a href="register.jsp">Register Here</a>
-    </td></tr>
-</table>
+<form method="post" action="<%=basePath+"login"%>">
+    <input type="text" name="username" placeholder="Username" value="<%=username%>"><br>
+   <input type="password" name="password" placeholder="password" value="<%=password%>">
+    <br/>
+    <span>
+		<input type="checkbox" class="checkbox" name="remember" value="1" <%="1".equals(rememberMe)? "checked":""%>/> Keep me signed in
+   </span>
+    <button type="submit" class="btn btn-default">Login</button>
+</form>	
+					</div><!--/login form-->
+				</div>
+				
+				
+			</div>
+		</div>
+	</section><!--/form-->
+<%@include file="footer.jsp"%>

@@ -18,7 +18,7 @@
     </context-param>
     <context-param>
         <param-name>password</param-name>
-        <param-value>123456</param-value>
+        <param-value>12345</param-value>
     </context-param>
     <!--<servlet>
           <servlet-name>RegisterServlet</servlet-name>
@@ -46,7 +46,7 @@
      </servlet>-->
     <servlet>
         <servlet-name>ConfigDemoServlet</servlet-name>
-        <servlet-class>week4.ConfigDemoServlet</servlet-class>
+        <servlet-class>YanQingmin.week3.demo.week4.ConfigDemoServlet</servlet-class>
         <init-param>
             <param-name>name</param-name>
             <param-value>YanQingmin</param-value>
@@ -68,4 +68,8 @@
         <servlet-name>ConfigDemoServlet</servlet-name>
         <url-pattern>/Config</url-pattern>
     </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>home</welcome-file><!--when you run app - first request send to home - HomeServlet-->
+    </welcome-file-list>
 </web-app>
