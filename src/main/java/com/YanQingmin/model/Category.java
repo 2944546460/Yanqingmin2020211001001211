@@ -1,4 +1,5 @@
 package com.YanQingmin.model;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,15 +39,21 @@ public class Category {
         return list;
     }
 
-    public static String findByCategoryId(Connection con, int categoryId) throws SQLException {
-        String sql = "select* from Category where categoryId=?";
-        PreparedStatement pt = con.prepareStatement(sql);
-        pt.setInt(1, categoryId);
-        ResultSet rs = pt.executeQuery();
+    public static String findByCategoryId(Connection con, int categoryId) {
         String categoryName = null;
-        while (rs.next()) {
-            categoryName = rs.getString("categoryName");
+        try {
+            String sql = "select categoryName from category where categoryId=?";
+            PreparedStatement pt  = con.prepareStatement(sql);
+            pt.setInt(1, categoryId);
+            ResultSet rs = pt.executeQuery();
+            while (rs.next()) {
+                System.out.println("categoryName==>"+rs.getString("categoryName"));
+                categoryName= rs.getString("categoryName");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         return categoryName;
     }
 
