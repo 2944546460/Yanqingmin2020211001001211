@@ -30,7 +30,7 @@
     </context-param>
     <!--<servlet>
           <servlet-name>RegisterServlet</servlet-name>
-          <servlet-class>com.zhouzhenfeng.week3.RegisterServlet</servlet-class>
+          <servlet-class>com.YanQingmin.week3.RegisterServlet</servlet-class>
       </servlet>-->
     <!-- <servlet>
          <servlet-name>JDBCDemoServlet</servlet-name>
