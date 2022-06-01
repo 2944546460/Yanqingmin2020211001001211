@@ -35,7 +35,7 @@ public class ProductDao implements  IProductDao{
     }//end save
 
     @Override
-    public int delete(Integer productId, Connection con) {
+    public int delete(Integer productId, Connection con) throws SQLException {
         String sql = "delete from product where productId=?";
         PreparedStatement preparedStatement = con.prepareStatement(sql);
         preparedStatement.setInt(1, productId);
@@ -47,7 +47,7 @@ public class ProductDao implements  IProductDao{
     }
 
     @Override
-    public int update(Product instance, Connection con) {
+    public int update(Product instance, Connection con) throws SQLException {
         String sql = "update product set productName=?,productDescription=?,picture=?,price=?,categoryId=? where productId=?";
         PreparedStatement pt = con.prepareStatement(sql);
         pt.setString(1, product.getProductName());
@@ -67,7 +67,7 @@ public class ProductDao implements  IProductDao{
     }
 
     @Override
-    public Product findById(Integer productId, Connection con) {
+    public Product findById(Integer productId, Connection con) throws SQLException {
         String sql = "select * from product where productId=?";
         PreparedStatement pt = con.prepareStatement(sql);
         pt.setInt(1, productId);
@@ -87,7 +87,7 @@ public class ProductDao implements  IProductDao{
     }
 
     @Override
-    public List<Product> findByCategoryId(int categoryId, Connection con) {
+    public List<Product> findByCategoryId(int categoryId, Connection con) throws SQLException {
         String sql = "select * from product where categoryId=?";
         PreparedStatement pt = con.prepareStatement(sql);
         pt.setInt(1, categoryId);
