@@ -42,8 +42,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li><a href="#"><i class="fa fa-user"></i> Welcome,
 								<%if(session.getAttribute("user")!=null){
 								User user=(User)session.getAttribute("user");
-  									 out.print(user.getUsername());
-  									 }else{out.print("Guest");} %>
+  									 out.println(user.getUsername());
+  									 }else{out.println("Guest");} %>
   									</a></li>
 							</ul>
 						</div>
