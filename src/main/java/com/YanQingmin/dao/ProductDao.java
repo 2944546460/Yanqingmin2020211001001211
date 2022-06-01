@@ -50,6 +50,7 @@ public class ProductDao implements  IProductDao{
     public int update(Product instance, Connection con) throws SQLException {
         String sql = "update product set productName=?,productDescription=?,picture=?,price=?,categoryId=? where productId=?";
         PreparedStatement pt = con.prepareStatement(sql);
+        Product product = new Product();
         pt.setString(1, product.getProductName());
         pt.setString(2, product.getProductDescription());
             if (product.getPicture() != null) {
@@ -192,7 +193,7 @@ public class ProductDao implements  IProductDao{
         }
         return productList;
     }
-}
+
 
     public byte[] getPictureById(Integer productId,Connection con) throws SQLException {
         byte[] imgByte=null;

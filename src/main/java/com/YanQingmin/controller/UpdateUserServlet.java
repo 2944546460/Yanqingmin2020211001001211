@@ -47,7 +47,7 @@ public class UpdateUserServlet extends HttpServlet {
             user.setEmail(email);
             user.setGender(gender);
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
-            user.setBirthDate(date);
+            user.setBirthday(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }

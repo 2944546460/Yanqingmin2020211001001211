@@ -2,7 +2,6 @@ package com.YanQingmin.controller;
 
 
 
-import com.YanQingmin.dao.OrderDao;
 import com.YanQingmin.model.Order;
 import com.YanQingmin.model.Payment;
 
@@ -32,7 +31,7 @@ public class AdminOrderListServlet extends HttpServlet {
         List<Payment> paymentTypeList=Payment.findAllPayment(con);
         request.setAttribute("paymentTypeList",paymentTypeList);
         OrderDao orderDao=new OrderDao();
-        List<Order> orderList=orderDao.findAll(con);
+        List<Order> orderList = orderDao.findAll(con);
         request.setAttribute("orderList",orderList);
         String path="/WEB-INF/views/admin/orderList.jsp";
         request.getRequestDispatcher(path).forward(request,response);

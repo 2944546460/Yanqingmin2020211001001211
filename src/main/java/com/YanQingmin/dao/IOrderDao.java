@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.YanQingmin.model.Item;
+import com.YanQingmin.model.Order;
 
 public interface IOrderDao {
 
