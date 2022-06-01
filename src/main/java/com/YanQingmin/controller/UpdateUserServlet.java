@@ -1,23 +1,62 @@
 package com.YanQingmin.controller;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import com.YanQingmin.dao.IUserDao;
+import com.YanQingmin.dao.UserDao;
+import com.YanQingmin.model.User;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-@WebServlet(name = "UpdateUserServlet", value = "/updateUser")
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+@WebServlet("/updateUser")
 public class UpdateUserServlet extends HttpServlet {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession(false).invalidate();
-        request.setAttribute("message","update");
-        request.getRequestDispatcher("WEB-INF/views/updateUser.jsp").forward(request,response);
+    public void init() throws ServletException {
+        connection = (Connection) getServletContext().getAttribute("connection");
+        System.out.println(connection);
     }
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession(false).invalidate();
-        request.setAttribute("message","update");
-        request.getRequestDispatcher("WEB-INF/views/userinfo.jsp").forward(request,response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("WEB-INF/views/updateUser.jsp").forward(req,resp);
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id=req.getParameter("id");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String email = req.getParameter("Email");
+        String gender = req.getParameter("gender");
+        String birthdate = req.getParameter("Birthdate");
+        User user = new User();
+        try {
+            user.setId(Integer.parseInt(id));
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setGender(gender);
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
+            user.setBirthDate(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        IUserDao userDao = new UserDao();
+        try {
+            userDao.updateUser(connection, user);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("accountDetails").forward(req,resp);
     }
 }
